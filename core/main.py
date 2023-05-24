@@ -7,23 +7,26 @@ from classes.players_list import PlayersList
 
 
 def main():
-    file_name = "../data/FIFA Player Card stats (Responses) - Form Responses 1.csv"
+    file_name = "../data/input/FIFA Player Card stats (Responses) - Form Responses 1.csv"
     player_stats = extract_data(file_name)
     # print(player_stats)
 
-    file_name = "../data/player_data.csv"
+    file_name = "../data/input/player_data.csv"
     players_data = read_csv(file_name)
     # print(player_data)
 
     players_list = list()
-    for index_player in range(players_data.shape[0]):
+    for index_player, player_email in enumerate(player_stats.keys()):
         player_data = players_data.loc[index_player]
 
         player_name = player_data["name"]
         player_number = player_data["number"]
         player_position = player_data["position"]
 
-        player_stats_form = player_stats[index_player]
+        player_stats_form = player_stats[player_email]
+
+        if player_name == "Blanco Jorge":
+            continue
 
         player = Player(player_name, player_number, player_position, player_stats_form)
 
